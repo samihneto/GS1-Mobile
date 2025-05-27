@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { useAuth } from '../../../context/AuthContext';  // importe seu hook useAuth
+import { useAuth } from '../../../context/AuthContext';
 
 export default function Login() {
   const navigation = useNavigation<any>();
-  const { login } = useAuth(); // pega a função login do contexto
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
@@ -27,13 +27,8 @@ export default function Login() {
         return;
       }
 
-      // Chama o login do contexto para atualizar o estado global de autenticação
       await login();
-
       Alert.alert('Sucesso', 'Login realizado com sucesso!');
-      // Navegar para o app principal (opcional, pois a navegação será automática pelo Routes)
-      // navigation.navigate('Dashboard'); 
-
     } catch (error) {
       Alert.alert('Erro', 'Falha ao realizar login');
       console.error(error);
@@ -42,14 +37,19 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Entrar</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Entrar</Text>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Welcome')}>
+          <Text style={styles.backButtonText}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
 
       <TextInput
         placeholder="E-mail"
         value={email}
         onChangeText={setEmail}
         style={styles.input}
-        placeholderTextColor="#ccc"
+        placeholderTextColor="#B5BBC4"
         keyboardType="email-address"
         autoCapitalize="none"
       />
@@ -59,23 +59,26 @@ export default function Login() {
         onChangeText={setSenha}
         secureTextEntry
         style={styles.input}
-        placeholderTextColor="#ccc"
+        placeholderTextColor="#B5BBC4"
       />
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>ENTRAR</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Forgot')}>
-        <Text style={styles.link}>Esqueci a senha</Text>
-      </TouchableOpacity>
-
       <View style={styles.footer}>
+        <TouchableOpacity onPress={() => navigation.navigate('Forgot')}>
+          <Text style={styles.link}>Esqueceu a senha?</Text>
+        </TouchableOpacity>
         <Text style={styles.footerText}>Não tem uma conta?</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <Text style={styles.link}>Cadastrar</Text>
         </TouchableOpacity>
       </View>
+
+
+
+
     </View>
   );
 }
@@ -83,29 +86,49 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#111914',
+    backgroundColor: '#A7C7E7', // Azul-claro
     justifyContent: 'center',
     alignItems: 'center',
     padding: 80,
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: 32,
+  },
+  backButton: {
+    alignSelf: 'flex-start',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    backgroundColor: '#4A6FA5',
+    borderRadius: 6,
+  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 32,
     textAlign: 'center',
-    color: '#f7f7f7',
+    color: '#4A6FA5',
+    lineHeight: 32,
+  },
+  backButtonText: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: 'bold',
+    lineHeight: 18,
   },
   input: {
     width: '100%',
     height: 50,
-    backgroundColor: '#1d2a23',
+    backgroundColor: '#F0F0F0', // Cinza-claro
     borderRadius: 8,
     paddingHorizontal: 16,
-    color: '#fff',
+    color: '#333333', // Preto suave
     marginBottom: 20,
   },
   button: {
-    backgroundColor: '#22b85d',
+    backgroundColor: '#4A6FA5', // Azul-profundo
     borderRadius: 8,
     paddingVertical: 15,
     paddingHorizontal: 40,
@@ -113,22 +136,22 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonText: {
-    color: '#fff',
+    color: '#FFFFFF', // Branco puro
     fontSize: 16,
     fontWeight: 'bold',
   },
   link: {
-    color: '#22b85d',
+    color: '#4A6FA5', // Azul-profundo
     fontSize: 14,
-    marginTop: 10,
     textDecorationLine: 'underline',
   },
   footer: {
     alignItems: 'center',
-    marginTop: 20,
+    gap: 5,
+    marginTop: 10,
   },
   footerText: {
-    color: '#ccc',
+    color: ' #2F476D',
     fontSize: 14,
   },
 });

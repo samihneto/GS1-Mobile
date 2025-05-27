@@ -10,6 +10,6 @@ export default function Agendamentos() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#111914' },
-  text: { fontSize: 20, color: '#fff' },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FFF' },
+  text: { fontSize: 20, color: '#4A6FA5' },
 });

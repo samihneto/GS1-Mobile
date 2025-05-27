@@ -45,21 +45,26 @@ export default function Register() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Criar Conta</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Criar Conta</Text>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Welcome')}>
+          <Text style={styles.backButtonText}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
 
       <TextInput
         placeholder="Nome"
         value={nome}
         onChangeText={setNome}
         style={styles.input}
-        placeholderTextColor="#ccc"
+        placeholderTextColor="#B5BBC4"
       />
       <TextInput
         placeholder="E-mail"
         value={email}
         onChangeText={setEmail}
         style={styles.input}
-        placeholderTextColor="#ccc"
+        placeholderTextColor="#B5BBC4"
         keyboardType="email-address"
         autoCapitalize="none"
       />
@@ -69,8 +74,9 @@ export default function Register() {
         onChangeText={setSenha}
         secureTextEntry
         style={styles.input}
-        placeholderTextColor="#ccc"
+        placeholderTextColor="#B5BBC4"
       />
+
 
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>CADASTRAR</Text>
@@ -86,55 +92,73 @@ export default function Register() {
   );
 }
 
-
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#111914',
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 80,
-    },
-    title: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      marginBottom: 32,
-      textAlign: 'center',
-      color: '#f7f7f7',
-    },
-    input: {
-      width: '100%',
-      height: 50,
-      backgroundColor: '#1d2a23',
-      borderRadius: 8,
-      paddingHorizontal: 16,
-      color: '#fff',
-      marginBottom: 20,
-    },
-    button: {
-      backgroundColor: '#22b85d',
-      borderRadius: 8,
-      paddingVertical: 15,
-      paddingHorizontal: 40,
-      alignItems: 'center',
-      marginBottom: 20,
-    },
-    buttonText: {
-      color: '#fff',
-      fontSize: 16,
-      fontWeight: 'bold',
-    },
-    footer: {
-      alignItems: 'center',
-    },
-    footerText: {
-      color: '#ccc',
-      fontSize: 14,
-    },
-    link: {
-      color: '#22b85d',
-      fontSize: 14,
-      marginTop: 5,
-      textDecorationLine: 'underline',
-    },
-  });
+  container: {
+    flex: 1,
+    backgroundColor: '#A7C7E7', // Azul-claro
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 80,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: 32,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#4A6FA5', // Azul-profundo
+  },
+  input: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#F0F0F0', // Cinza-claro
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    color: '#333333', // Preto suave
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: '#4A6FA5', // Azul-profundo
+    borderRadius: 8,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  backButton: {
+    alignSelf: 'flex-start',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    backgroundColor: '#4A6FA5',
+    borderRadius: 6,
+  },
+  backButtonText: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  buttonText: {
+    color: '#FFFFFF', // Branco puro
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  link: {
+    color: '#4A6FA5', // Azul-profundo
+    fontSize: 14,
+    marginTop: 10,
+    textDecorationLine: 'underline',
+  },
+  footer: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  footerText: {
+    color: ' #2F476D',
+    fontSize: 14,
+  },
+});

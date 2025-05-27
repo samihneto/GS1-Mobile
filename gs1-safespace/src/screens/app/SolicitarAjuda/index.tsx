@@ -10,6 +10,6 @@ export default function SolicitarAjuda() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#111914' },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#4A6FA5' },
   text: { fontSize: 20, color: '#fff' },
 });
