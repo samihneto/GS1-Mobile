@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "@/request";
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 
@@ -16,10 +16,13 @@ export default function SolicitarAjuda() {
 
   const fetchAjudas = async () => {
     try {
-      const res = await fetch(API_URL);
+      console.log(" ---> fetchAjudas ")
+      //const res = await fetch(API_URL);
 
-      const data = await res.json();
-      setAjudas(data);
+      // const data = await res.json();
+      const response = await api.get("/SolicitacaoAjuda")
+
+      setAjudas(response.data);
 
     } catch (error) {
       console.log(error.response.data)
@@ -49,12 +52,16 @@ export default function SolicitarAjuda() {
         throw new Error('Erro ao criar ajuda 1');
       }
 
-      await fetchAjudas();
+      await fetchAjudas();F
       setDescricao('');
        */
-      await axios.post("http://localhost:5279/SolicitacaoAjuda", {
+      const response = await api.post("/SolicitacaoAjuda", {
         descricao,
       })
+
+      console.log(response.data)
+      console.log(" --->")
+      console.log(" --->")
 
     } catch (error) {
       console.log(" --->")
