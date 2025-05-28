@@ -23,29 +23,29 @@ export default function Welcome() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#4A6FA5', // Fundo agora azul-profundo
+    backgroundColor: '#A7C7E7', // Fundo agora azul-profundo
     justifyContent: 'center',
     alignItems: 'center',
     padding: 80,
   },
   title: {
-    fontSize: 28,
+    fontSize: 48,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#FFFFFF', // Texto branco para contraste
+    color: '#4A6FA5', 
     marginBottom: 40,
   },
   button: {
-    backgroundColor: '#A7C7E7', // Botão agora azul-claro
+    backgroundColor: '#4A6FA5', 
     borderRadius: 8,
     paddingVertical: 15,
     paddingHorizontal: 40,
     alignItems: 'center',
     marginBottom: 20,
-    width: '100%',
+    width: '50%',
   },
   buttonText: {
-    color: '#4A6FA5', // Texto com azul-profundo para contraste
+    color: '#FFF', 
     fontSize: 16,
     fontWeight: 'bold',
   },
