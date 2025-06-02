@@ -1,14 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
 export default function Welcome() {
   const navigation = useNavigation<any>();
 
   return (
     <View style={styles.container}>
+            <Image
+        style={styles.logo}
+        source={require('../../../../assets/images/logo_safespace.png')}
+      />
       <Text style={styles.title}>Bem-vindo!</Text>
-
+      
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
         <Text style={styles.buttonText}>ENTRAR</Text>
       </TouchableOpacity>
@@ -49,4 +53,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  logo: {
+    width: 300,
+    height: 300,
+    marginBottom: 40,
+    borderRadius: 75, // Tornando a imagem circular
+    borderWidth: 2, // Adicionando uma borda
+    borderColor: '#4A6FA5', // Cor da borda
+    backgroundColor: '#4A6FA5', // Fundo da imagem
+  }
 });
