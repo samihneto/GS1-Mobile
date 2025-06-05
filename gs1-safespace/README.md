@@ -1,50 +1,69 @@
-# Welcome to your Expo app 👋
+# 🧠 SafeSpace App — React Native com Expo
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo mobile desenvolvido com **React Native** e **Expo**, como parte do projeto **SafeSpace**, uma iniciativa de apoio psicológico e logístico a vítimas de tragédias. Este app consome a API SafeSpace e oferece uma interface simples para **cadastro, login, solicitações de ajuda** e **agendamentos de sessões**.
 
-## Get started
+---
 
-1. Install dependencies
+## 📱 Funcionalidades
 
-   ```bash
-   npm install
-   ```
+- Tela de **Login** e **Cadastro de Usuários**
+- Visualização de um **Dashboard** com resumo de atividades
+- Envio de **Solicitações de Ajuda**
+- **Agendamento** de sessões de apoio emocional
+- Integração com a **API RESTful** da SafeSpace
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 🚀 Tecnologias Utilizadas
 
-In the output, you'll find options to open the app in a
+- [React Native](https://reactnative.dev/)
+- [Expo](https://expo.dev/)
+- [Axios](https://axios-http.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [React Navigation](https://reactnavigation.org/)
+- Integração com [SafeSpace API (.NET)](https://github.com/seu-usuario/safespace-api)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🛠️ Como Executar o Projeto
 
-## Get a fresh project
+1. Clone o repositório:
+git clone https://github.com/seu-usuario/safespace-app.git
+cd safespace-app
 
-When you're ready, run:
+2. Instale as dependências:
+npm install
 
-```bash
-npm run reset-project
-```
+3. Inicie o projeto com o Expo:
+npx expo start
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+4. Abra o app em:
+- Dispositivo físico (via QR Code com o app Expo Go)
+- Emulador Android (Android Studio)
+- Simulador iOS (Xcode, apenas no macOS)
 
-## Learn more
+## 📁 Estrutura Principal
+/app
+├── screens
+│   ├── Login.tsx
+│   ├── Cadastro.tsx
+│   ├── Dashboard.tsx
+│   └── Agendamentos.tsx
+├── services
+│   └── api.ts
+├── components
+│   └── [Componentes reutilizáveis]
+└── App.tsx
 
-To learn more about developing your project with Expo, look at the following resources:
+## 🧪 Requisitos de Teste
+Login com usuário cadastrado na API
+Cadastro de novo usuário
+Criação de nova solicitação de ajuda
+Criação de agendamento
+Visualização de dados no dashboard (resumo)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 👨‍💻 Autores
+Desenvolvido por FJS.dev Associados
+#### Felipe Levy Stephens Fidelix - RM556426 
+#### Jennifer Suzuki - RM554661 
+#### Samir Hage Neto - RM557260

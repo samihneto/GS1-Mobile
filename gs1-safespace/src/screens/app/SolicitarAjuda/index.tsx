@@ -12,8 +12,6 @@ export default function SolicitarAjuda() {
   const [ajudas, setAjudas] = useState<Ajuda[]>([]);
   const [descricao, setDescricao] = useState('');
 
-  const API_URL = 'http://187.72.164.185:5279/SolicitacaoAjuda'; // Altere para seu IP e rota real
-
   const fetchAjudas = async () => {
     try {
       console.log(" ---> fetchAjudas ")
@@ -35,26 +33,31 @@ export default function SolicitarAjuda() {
   };
 
   const criarAjuda = async () => {
-    try {
-      const response = await api.post("/SolicitacaoAjuda", {
-        descricao,
-      })
+  try {
+    const response = await api.post("/SolicitacaoAjuda", {
+      descricao,
+    });
 
-      console.log(response.data)
-      console.log(" --->")
-      console.log(" --->")
+    console.log(response.data);
 
-    } catch (error) {
-      console.log(" --->")
-      console.log(error)
-      console.log(" --->")
-      if (error instanceof Error) {
-        Alert.alert('Erro ao criar ajuda 2', error.message);
-      } else {
-        Alert.alert('Erro ao criar ajuda 3', 'Ocorreu um erro desconhecido');
-      }
+    // Limpa o campo de input
+    setDescricao('');
+
+    // Atualiza a lista de ajudas
+    await fetchAjudas();
+
+  } catch (error: any) {
+    console.log(" --->");
+    console.log(error);
+    console.log(" --->");
+    if (error instanceof Error) {
+      Alert.alert('Erro ao criar ajuda', error.message);
+    } else {
+      Alert.alert('Erro ao criar ajuda', 'Ocorreu um erro desconhecido');
     }
-  };
+  }
+};
+
 
   const deletarAjuda = async (id: string) => {
     try {
