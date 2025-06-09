@@ -3,57 +3,77 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Button, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 type Ajuda = {
+  dataSolicitacao: any;
   id: string;
   descricao: string;
-  // Adicione outros campos conforme necessário
 };
 
 export default function SolicitarAjuda() {
   const [ajudas, setAjudas] = useState<Ajuda[]>([]);
   const [descricao, setDescricao] = useState('');
+  const [ajudaEditando, setAjudaEditando] = useState<Ajuda | null>(null);
 
   const fetchAjudas = async () => {
     try {
-      console.log(" ---> fetchAjudas ")
-      //const res = await fetch(API_URL);
-
-      // const data = await res.json();
-      const response = await api.get("/SolicitacaoAjuda")
-
+      const response = await api.get("/SolicitacaoAjuda");
       setAjudas(response.data);
-
-    } catch (error) {
-      console.log(error.response.data)
+    } catch (error: any) {
+      console.log(error.response?.data);
       if (error instanceof Error) {
-        Alert.alert('Erro ao buscar dados 1', error.message);
+        Alert.alert('Erro ao buscar dados', error.message);
       } else {
-        Alert.alert('Erro ao buscar dados 2', 'Ocorreu um erro desconhecido');
+        Alert.alert('Erro ao buscar dados', 'Ocorreu um erro desconhecido');
       }
     }
   };
 
   const criarAjuda = async () => {
+    try {
+      const response = await api.post("/SolicitacaoAjuda", {
+        descricao,
+      });
+
+      console.log(response.data);
+
+      setDescricao('');
+      await fetchAjudas();
+
+    } catch (error: any) {
+      console.log(error);
+      if (error instanceof Error) {
+        Alert.alert('Erro ao criar ajuda', error.message);
+      } else {
+        Alert.alert('Erro ao criar ajuda', 'Ocorreu um erro desconhecido');
+      }
+    }
+  };
+
+  const atualizarAjuda = async () => {
+  if (!ajudaEditando) return;
+
   try {
-    const response = await api.post("/SolicitacaoAjuda", {
-      descricao,
-    });
+    const payload = {
+      id: ajudaEditando.id,
+      descricao: descricao,
+      dataSolicitacao: ajudaEditando.dataSolicitacao, // importante enviar!
+    };
 
-    console.log(response.data);
+    console.log("Payload PUT:", payload);
 
-    // Limpa o campo de input
+    const response = await api.put(`/SolicitacaoAjuda/${ajudaEditando.id}`, payload);
+
+    console.log("Ajuda atualizada:", response.data);
+
     setDescricao('');
-
-    // Atualiza a lista de ajudas
+    setAjudaEditando(null);
     await fetchAjudas();
 
   } catch (error: any) {
-    console.log(" --->");
     console.log(error);
-    console.log(" --->");
     if (error instanceof Error) {
-      Alert.alert('Erro ao criar ajuda', error.message);
+      Alert.alert('Erro ao atualizar ajuda', error.message);
     } else {
-      Alert.alert('Erro ao criar ajuda', 'Ocorreu um erro desconhecido');
+      Alert.alert('Erro ao atualizar ajuda', 'Ocorreu um erro desconhecido');
     }
   }
 };
@@ -64,13 +84,18 @@ export default function SolicitarAjuda() {
       const response = await api.delete(`/SolicitacaoAjuda/${id}`);
       console.log("Ajuda deletada:", response.data);
       await fetchAjudas();
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof Error) {
         Alert.alert('Erro ao deletar ajuda', error.message);
       } else {
         Alert.alert('Erro ao deletar ajuda', 'Ocorreu um erro desconhecido');
       }
     }
+  };
+
+  const editarAjuda = (ajuda: Ajuda) => {
+    setAjudaEditando(ajuda);
+    setDescricao(ajuda.descricao);
   };
 
   useEffect(() => {
@@ -88,15 +113,13 @@ export default function SolicitarAjuda() {
         onChangeText={setDescricao}
       />
 
-      {/* <TextInput
-        style={styles.input}
-        placeholder="ID do Usuário"
-        value={idUsuarioSS}
-        onChangeText={setIdUsuarioSS}
-      /> */}
-
-      <TouchableOpacity style={styles.button} onPress={criarAjuda}>
-        <Text style={styles.buttonText}>Enviar Solicitação</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={ajudaEditando ? atualizarAjuda : criarAjuda}
+      >
+        <Text style={styles.buttonText}>
+          {ajudaEditando ? 'Atualizar Solicitação' : 'Enviar Solicitação'}
+        </Text>
       </TouchableOpacity>
 
       <FlatList
@@ -106,13 +129,26 @@ export default function SolicitarAjuda() {
         renderItem={({ item }) => (
           <View style={styles.item}>
             <Text style={styles.text}>{item.descricao}</Text>
-            <TouchableOpacity style={styles.deleteButton} onPress={() => deletarAjuda(item.id)}>
-              <Text style={styles.deleteButtonText}>Excluir</Text>
-            </TouchableOpacity>
+
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity
+                style={styles.editButton}
+                onPress={() => editarAjuda(item)}
+              >
+                <Text style={styles.editButtonText}>Editar</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => deletarAjuda(item.id)}
+              >
+                <Text style={styles.deleteButtonText}>Excluir</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       />
-    </View >
+    </View>
   );
 }
 
@@ -169,6 +205,18 @@ const styles = StyleSheet.create({
     color: '#2F476D',
     flex: 1,
     marginRight: 10,
+  },
+  editButton: {
+    backgroundColor: '#F0AD4E',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    marginRight: 8,
+  },
+  editButtonText: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    fontSize: 12,
   },
   deleteButton: {
     backgroundColor: '#D9534F',
